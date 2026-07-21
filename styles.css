@@ -805,13 +805,13 @@ section {
 
 /* Footer Section - Dedicated for final frame footer_nafrabace.png & address */
 .footer-section {
-  min-height: 85vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 4rem 2rem 5rem;
   background: transparent;
   border-top: none;
 }

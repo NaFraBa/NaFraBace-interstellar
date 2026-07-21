@@ -144,25 +144,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', updateScrollTarget, { passive: true });
 
-  // REVEAL ON SCROLL ENGINE (Intersection Observer)
+  // REVEAL ON SCROLL ENGINE (Senior High-Performance Edition)
   const revealElements = document.querySelectorAll('.reveal');
 
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    },
-    {
-      root: null,
-      threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
-    }
-  );
+  function triggerRevealIfVisible() {
+    const triggerBottom = window.innerHeight * 0.92;
+    revealElements.forEach((el) => {
+      const top = el.getBoundingClientRect().top;
+      if (top < triggerBottom) {
+        el.classList.add('active');
+      }
+    });
+  }
 
-  revealElements.forEach((el) => revealObserver.observe(el));
+  // IntersectionObserver for GPU-accelerated reveal
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.02,
+        rootMargin: '100px 0px 50px 0px'
+      }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  }
+
+  // Fallback & Initial check
+  triggerRevealIfVisible();
+  window.addEventListener('scroll', triggerRevealIfVisible, { passive: true });
 
   // Active Navbar link on scroll
   const sections = document.querySelectorAll('section');
@@ -256,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preloader.classList.add('loaded');
     }
     updateScrollTarget();
+    triggerRevealIfVisible();
     requestAnimationFrame(renderLoop);
   });
 });
