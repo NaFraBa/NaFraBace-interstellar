@@ -362,11 +362,11 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="fullname">Nombre del Pasajero</label>
-                <input type="text" id="fullname" class="form-input" placeholder="Ej. Alex Mercer" required>
+                <input type="text" id="fullname" class="form-input" placeholder="Nombre completo" required>
               </div>
               <div class="form-group">
                 <label for="email">Canal Comms (Email)</label>
-                <input type="email" id="email" class="form-input" placeholder="alex@quantum.net" required>
+                <input type="email" id="email" class="form-input" placeholder="email@dominio.com" required>
               </div>
             </div>
 
@@ -374,24 +374,24 @@
               <div class="form-group">
                 <label for="destination">Destino Estelar</label>
                 <select id="destination" class="form-select">
-                  <option value="350000">Sistema Kepler-M31 (Andrómeda) - 350,000 Créditos</option>
-                  <option value="580000">Cúmulo M33-Alpha (Triángulo) - 580,000 Créditos</option>
-                  <option value="890000">Sistema Dorado-X (Magallanes) - 890,000 Créditos</option>
-                  <option value="1450000">Núcleo Sombrero M104 - 1,450,000 Créditos</option>
+                  <option value="350000">Kepler-M31 — 350k CR</option>
+                  <option value="580000">Cúmulo M33 — 580k CR</option>
+                  <option value="890000">Dorado-X — 890k CR</option>
+                  <option value="1450000">Sombrero M104 — 1.45M CR</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="travel-class">Clase de Vuelo</label>
                 <select id="travel-class" class="form-select">
-                  <option value="1">Económica Orbital (Estándar)</option>
-                  <option value="2.5">Primera Clase Galáctica (Suite VIP + EVA)</option>
+                  <option value="1">Económica Orbital</option>
+                  <option value="2.5">Primera Clase VIP</option>
                 </select>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="launch-date">Fecha de Ventana de Lanzamiento</label>
+                <label for="launch-date">Ventana de Lanzamiento</label>
                 <input type="date" id="launch-date" class="form-input" required>
               </div>
               <div class="form-group">
@@ -403,12 +403,12 @@
             <div class="booking-summary">
               <div>
                 <div class="summary-label">Inversión Total Estimada:</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted);">Paga con Créditos Espaciales o Cripto-Token NAF</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);">Paga con Créditos Espaciales o Token NAF</div>
               </div>
               <div class="summary-total" id="total-price">350,000 CR</div>
             </div>
 
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 1.1rem;">
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 1rem;">
               Confirmar y Emitir Ticket Estelar
             </button>
           </form>
