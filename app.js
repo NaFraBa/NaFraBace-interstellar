@@ -73,13 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Draw frame on canvas with CSS 'cover' aspect ratio algorithm & ultra-smooth transition for last frame
+  // Draw frame on canvas with CSS 'cover' aspect ratio algorithm & cross-fading for all frames
   function renderFrame(exactFrameIndex) {
     const baseIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.floor(exactFrameIndex)));
     const nextIndex = Math.min(TOTAL_FRAMES - 1, baseIndex + 1);
     const progressBetween = exactFrameIndex - baseIndex;
 
     const imgBase = images[baseIndex];
+    const imgNext = images[nextIndex];
     if (!imgBase || !imgBase.complete || imgBase.naturalWidth === 0) return;
 
     const canvasWidth = canvas.width;
@@ -106,16 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // If approaching final frame (216 -> 217), apply a silky smooth cross-fade blend
-    if (baseIndex >= TOTAL_FRAMES - 2 && nextIndex === TOTAL_FRAMES - 1 && progressBetween > 0) {
-      const imgNext = images[nextIndex];
+    // Apply silky smooth cross-fade blend between consecutive frames
+    if (progressBetween > 0 && imgNext && imgNext.complete && imgNext.naturalWidth > 0) {
       ctx.globalAlpha = 1 - progressBetween;
       ctx.drawImage(imgBase, offsetX, offsetY, drawWidth, drawHeight);
 
-      if (imgNext && imgNext.complete && imgNext.naturalWidth > 0) {
-        ctx.globalAlpha = progressBetween;
-        ctx.drawImage(imgNext, offsetX, offsetY, drawWidth, drawHeight);
-      }
+      ctx.globalAlpha = progressBetween;
+      ctx.drawImage(imgNext, offsetX, offsetY, drawWidth, drawHeight);
       ctx.globalAlpha = 1.0;
     } else {
       ctx.globalAlpha = 1.0;
@@ -149,21 +147,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Smooth Interpolated Render Loop (60 FPS LERP)
+  // Smooth Interpolated Render Loop (On-Demand LERP)
+  let isLoopRunning = false;
+
+  function startRenderLoop() {
+    if (isLoopRunning) return;
+    isLoopRunning = true;
+    requestAnimationFrame(renderLoop);
+  }
+
   function renderLoop() {
     if (isReducedMotion) {
       currentFrameIndex = targetFrameIndex;
     } else {
-      // Linear Interpolation for fluid motion
+      // Linear Interpolation for fluid cinematic motion flow
       const diff = targetFrameIndex - currentFrameIndex;
-      currentFrameIndex += diff * 0.14;
+      currentFrameIndex += diff * 0.12;
 
-      if (Math.abs(diff) < 0.005) {
+      if (Math.abs(diff) < 0.001) {
         currentFrameIndex = targetFrameIndex;
       }
     }
 
     renderFrame(currentFrameIndex);
+
+    // Stop execution of render loop when target is reached
+    if (currentFrameIndex === targetFrameIndex) {
+      isLoopRunning = false;
+      return;
+    }
+
     requestAnimationFrame(renderLoop);
   }
 
@@ -177,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollFraction = Math.min(1, Math.max(0, scrollTop / maxScroll));
     // Maps smoothly to 0 ... (TOTAL_FRAMES - 1)
     targetFrameIndex = scrollFraction * (TOTAL_FRAMES - 1);
+
+    startRenderLoop();
   }
 
   window.addEventListener('scroll', updateScrollTarget, { passive: true });
@@ -370,6 +385,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateScrollTarget();
     triggerRevealIfVisible();
-    requestAnimationFrame(renderLoop);
   });
 });
