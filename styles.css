@@ -1,10 +1,10 @@
 /* Modern Sci-Fi Design System - NaFraBace Interstellar */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --font-heading: 'Orbitron', 'Syncopate', -apple-system, sans-serif;
-  --font-accent: 'Syncopate', sans-serif;
-  --font-body: 'Orbitron', 'Syncopate', -apple-system, sans-serif;
+  --font-heading: 'Michroma', 'Orbitron', -apple-system, sans-serif;
+  --font-accent: 'Michroma', sans-serif;
+  --font-body: 'Michroma', 'Orbitron', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --bg-dark: #030712;
@@ -77,11 +77,11 @@ body {
   pointer-events: none;
 }
 
-/* Reveal on Scroll */
+/* Staggered Reveal on Scroll */
 .reveal {
   opacity: 0;
-  transform: translateY(45px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -89,6 +89,11 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
 
 /* Preloader Screen */
 #preloader {
@@ -403,13 +408,20 @@ section {
 
 .hero-tagline {
   font-family: var(--font-heading);
-  font-size: clamp(0.8rem, 1.4vw, 1.05rem);
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+  color: #ffffff;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  max-width: 750px;
-  margin-bottom: 2.8rem;
-  text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  max-width: 820px;
+  margin-bottom: 3rem;
+  padding: 0.75rem 1.8rem;
+  background: rgba(3, 7, 18, 0.65);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 40px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
 }
 
 .hero-cta-group {
