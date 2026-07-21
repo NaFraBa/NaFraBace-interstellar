@@ -803,13 +803,55 @@ section {
   color: var(--primary-cyan);
 }
 
-/* Footer - Completely Clean with No Border Lines */
-footer {
-  padding: 2rem;
+/* Footer Section - Dedicated for final frame footer_nafrabace.png & address */
+.footer-section {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
   background: transparent;
-  backdrop-filter: none;
   border-top: none;
-  min-height: 100px;
+}
+
+.footer-address-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 850px;
+  padding: 2.2rem 2.8rem;
+  background: rgba(3, 7, 18, 0.45);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.footer-address-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  color: #ffffff;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 20px var(--primary-cyan-glow);
+}
+
+.footer-address-text {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--primary-cyan);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-address-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 
 /* Reduced Motion Override */
