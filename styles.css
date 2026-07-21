@@ -554,7 +554,7 @@ section.active {
   letter-spacing: 0.05em;
 }
 
-/* Glass Card */
+/* Glass Card - shared hover applies to all card variants */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
@@ -568,7 +568,10 @@ section.active {
   overflow: hidden;
 }
 
-.glass-card:hover {
+/* Universal card hover: glass-card, booking card, footer card */
+.glass-card:hover,
+.booking-glass-card:hover,
+.footer-address-container:hover {
   border-color: var(--glass-hover);
   transform: translateY(-4px);
   box-shadow: 0 16px 45px rgba(0, 240, 255, 0.25);
@@ -992,7 +995,8 @@ section.active {
   border: 1px solid rgba(0, 240, 255, 0.2) !important;
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition-normal);
   overflow: visible !important; /* Allow dropdown options and date picker popups to float cleanly */
 }
 
@@ -1126,22 +1130,19 @@ section.active {
   width: 100%;
   padding: 2rem 2.8rem;
   margin-bottom: 0;
-  background: rgba(3, 7, 18, 0.6);
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 16px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.65), 0 0 60px rgba(0, 240, 255, 0.06);
+  /* Same glass system as .glass-card */
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  box-shadow: var(--glass-shadow);
   transition: var(--transition-normal);
   position: relative;
   overflow: hidden;
 }
 
-.footer-address-container:hover {
-  border-color: var(--glass-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 45px rgba(0, 240, 255, 0.25);
-}
+/* hover handled by shared rule above (.footer-address-container:hover) */
 
 .footer-address-title {
   font-family: var(--font-heading);
