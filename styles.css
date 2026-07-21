@@ -26,7 +26,9 @@
   --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -67,7 +69,7 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: 
+  background:
     radial-gradient(circle at 50% 50%, rgba(3, 7, 18, 0.25) 0%, rgba(3, 7, 18, 0.75) 100%),
     linear-gradient(180deg, rgba(3, 7, 18, 0.85) 0%, rgba(3, 7, 18, 0.3) 30%, rgba(3, 7, 18, 0.3) 70%, rgba(3, 7, 18, 0.9) 100%);
   pointer-events: none;
@@ -194,7 +196,8 @@ body {
   padding: 0.3rem 0;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   color: var(--primary-cyan);
   text-shadow: 0 0 8px var(--primary-cyan-glow);
 }
@@ -211,7 +214,8 @@ body {
   transition: width 0.3s ease;
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 
@@ -462,8 +466,17 @@ section {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
 }
 
 /* SECTION 2: DESTINOS */
@@ -776,7 +789,8 @@ section {
   letter-spacing: 0.05em;
 }
 
-.form-input, .form-select {
+.form-input,
+.form-select {
   padding: 0.85rem 1.15rem;
   background: rgba(3, 7, 18, 0.7);
   border: 1px solid var(--glass-border);
@@ -788,7 +802,8 @@ section {
   transition: var(--transition-fast);
 }
 
-.form-input:focus, .form-select:focus {
+.form-input:focus,
+.form-select:focus {
   border-color: var(--primary-cyan);
   box-shadow: 0 0 12px var(--primary-cyan-glow);
 }
@@ -843,9 +858,11 @@ footer p {
   html {
     scroll-behavior: auto;
   }
+
   .glass-card:hover {
     transform: none;
   }
+
   .status-dot {
     animation: none;
   }
@@ -856,12 +873,15 @@ footer p {
   .navbar {
     padding: 1rem;
   }
+
   .nav-links {
     display: none;
   }
+
   section {
     padding: 6rem 1.25rem 3rem;
   }
+
   .hero-title {
     font-size: 2.4rem;
   }
