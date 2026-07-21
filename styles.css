@@ -958,7 +958,21 @@ section {
 }
 
 /* SECTION 7: RESERVA & FOOTER - Translucent for Personal Brand Visibility */
+#booking-footer-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
 #reserva {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
   min-height: 100vh; /* Match full height for scroll framing */
   display: flex;
   flex-direction: column;
@@ -968,6 +982,7 @@ section {
   pointer-events: none;
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateY(20px);
+  z-index: 2;
 }
 
 #reserva.visible {
@@ -1077,8 +1092,10 @@ section {
   color: var(--primary-cyan);
 }
 
-/* Footer Section - Dedicated for final frame footer_nafrabace.png & address */
 .footer-section {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
   min-height: 100vh; /* Match full height for scroll framing */
   display: flex;
   flex-direction: column;
@@ -1092,6 +1109,7 @@ section {
   pointer-events: none;
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateY(20px);
+  z-index: 1;
 }
 
 .footer-section.visible {
