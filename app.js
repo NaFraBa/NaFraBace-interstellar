@@ -6,6 +6,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Config & Constants
   const TOTAL_FRAMES = 217;
+  const SECTION_MAP = [
+    { id: 'hero', min: 0, max: 27 },
+    { id: 'destinos', min: 28, max: 62 },
+    { id: 'flota', min: 63, max: 97 },
+    { id: 'academia', min: 98, max: 132 },
+    { id: 'soporte', min: 133, max: 167 },
+    { id: 'testimonios', min: 168, max: 202 },
+    { id: 'reserva', min: 203, max: 215 },
+    { id: 'site-footer', min: 216, max: 216 }
+  ];
+
   const canvas = document.getElementById('space-canvas');
   const ctx = canvas.getContext('2d');
   const loaderBar = document.getElementById('loader-bar');
@@ -111,25 +122,31 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.drawImage(imgBase, offsetX, offsetY, drawWidth, drawHeight);
     }
 
-    // Sync section visibility with active frames
-    // Frame 216 = Index 215 (ezgif-frame-216.png)
-    // Frame 217 = Index 216 (footer_nafrabace.png)
-    const reservaSec = document.getElementById('reserva');
-    const footerSec = document.getElementById('site-footer');
-
-    if (reservaSec && footerSec) {
-      if (exactFrameIndex >= 214.2 && exactFrameIndex < 215.5) {
-        reservaSec.classList.add('visible');
-      } else {
-        reservaSec.classList.remove('visible');
+    // Sync section visibility with active frames using fixed timeline ranges
+    const roundedIndex = Math.round(exactFrameIndex);
+    let activeId = 'hero';
+    
+    SECTION_MAP.forEach((item) => {
+      const sec = document.getElementById(item.id);
+      if (sec) {
+        if (roundedIndex >= item.min && roundedIndex <= item.max) {
+          sec.classList.add('active');
+          activeId = item.id;
+        } else {
+          sec.classList.remove('active');
+        }
       }
+    });
 
-      if (exactFrameIndex >= 215.5) {
-        footerSec.classList.add('visible');
+    // Highlight navbar links dynamically
+    const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    allNavLinks.forEach((link) => {
+      if (link.getAttribute('href') === `#${activeId}`) {
+        link.classList.add('active');
       } else {
-        footerSec.classList.remove('visible');
+        link.classList.remove('active');
       }
-    }
+    });
   }
 
   // Smooth Interpolated Render Loop (60 FPS LERP)
@@ -197,30 +214,32 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach((el) => revealObserver.observe(el));
   }
 
-  // Fallback & Initial check
-  triggerRevealIfVisible();
-  window.addEventListener('scroll', triggerRevealIfVisible, { passive: true });
+  // Handle click on all page anchor links to scroll to specific frame ranges
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href').substring(1);
+      if (!targetId) return;
 
-  // Active Navbar links on scroll (Desktop + Mobile Drawer)
-  const sections = document.querySelectorAll('section');
-  const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-
-  function highlightNavOnScroll() {
-    let scrollPos = window.scrollY + 220;
-    sections.forEach((section) => {
-      if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-        const id = section.getAttribute('id');
-        allNavLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          }
+      const targetItem = SECTION_MAP.find(item => item.id === targetId);
+      if (targetItem) {
+        e.preventDefault();
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        // Scroll to the start of the frame range (or slightly in)
+        const targetFrame = targetItem.min;
+        const targetScroll = (targetFrame / (TOTAL_FRAMES - 1)) * maxScroll;
+        
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
         });
+
+        // Close mobile drawer if open
+        if (typeof closeMobileMenu === 'function') {
+          closeMobileMenu();
+        }
       }
     });
-  }
-
-  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
+  });
 
   // Mobile Menu Drawer Interactions
   const hamburgerBtn = document.getElementById('hamburger-btn');
