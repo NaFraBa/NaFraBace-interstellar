@@ -110,6 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.globalAlpha = 1.0;
       ctx.drawImage(imgBase, offsetX, offsetY, drawWidth, drawHeight);
     }
+
+    // Sync section visibility with active frames
+    // Frame 216 = Index 215 (ezgif-frame-216.png)
+    // Frame 217 = Index 216 (footer_nafrabace.png)
+    const reservaSec = document.getElementById('reserva');
+    const footerSec = document.getElementById('site-footer');
+
+    if (reservaSec && footerSec) {
+      if (exactFrameIndex >= 214.2 && exactFrameIndex < 215.5) {
+        reservaSec.classList.add('visible');
+      } else {
+        reservaSec.classList.remove('visible');
+      }
+
+      if (exactFrameIndex >= 215.5) {
+        footerSec.classList.add('visible');
+      } else {
+        footerSec.classList.remove('visible');
+      }
+    }
   }
 
   // Smooth Interpolated Render Loop (60 FPS LERP)
