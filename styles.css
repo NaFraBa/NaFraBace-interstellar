@@ -491,7 +491,9 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* Desktop: allow scroll only if content genuinely overflows */
   overflow-y: auto;
+  overflow-x: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -698,6 +700,7 @@ section.active {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.75rem;
   margin-top: 1rem;
+  width: 100%;
 }
 
 .destino-card {
@@ -705,6 +708,7 @@ section.active {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  min-height: 0;
 }
 
 .destino-header {
@@ -1235,69 +1239,114 @@ section.active {
   }
 
   section {
-    padding: 5rem 1rem 2.5rem;
+    /* Mobile: no internal scroll — content must fit within viewport */
+    padding: 4.75rem 1rem 1.5rem;
+    justify-content: flex-start;
+    overflow: hidden;
   }
 
   #reserva {
     min-height: 100vh;
     min-height: 100dvh;
-    padding-top: 6.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 5.5rem;
+    padding-bottom: 1.5rem;
     margin-bottom: 0;
+    overflow-y: auto; /* Booking form is tall — allow scroll on mobile */
+    justify-content: flex-start;
   }
 
   .telemetry-grid {
     grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .destinos-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .flota-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 0.75rem;
   }
 
   .academy-timeline {
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .testimonials-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 0.75rem;
   }
 
   .section-title {
-    font-size: clamp(1rem, 4vw, 1.55rem);
-    letter-spacing: 0.2em;
+    font-size: clamp(0.92rem, 3.5vw, 1.35rem);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
   }
 
   .section-subtitle {
-    font-size: 0.82rem;
-    margin-bottom: 1.75rem;
+    font-size: 0.78rem;
+    margin-bottom: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .section-tag {
+    margin-bottom: 0.5rem;
+    font-size: 0.62rem;
+    padding: 0.22rem 0.8rem;
   }
 
   .hero-title {
-    font-size: clamp(1.25rem, 5.5vw, 2.1rem);
-    letter-spacing: 0.2em;
+    font-size: clamp(1.15rem, 4.5vw, 1.85rem);
+    letter-spacing: 0.18em;
+    margin: 0.75rem 0 1.25rem;
   }
 
   .hero-tagline {
-    font-size: clamp(0.78rem, 3vw, 1rem);
-    padding: 0.6rem 1.25rem;
-    margin-bottom: 2rem;
+    font-size: clamp(0.72rem, 2.8vw, 0.95rem);
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Glass cards: compact padding so content fits without scroll */
+  .glass-card {
+    padding: clamp(0.75rem, 2vw, 1.4rem);
   }
 
   .booking-glass-card {
-    padding: 1.5rem 1.15rem;
+    padding: 1.35rem 1rem;
   }
 
   .form-input, .form-select {
     font-size: 1rem;
+    padding: 0.65rem 0.85rem;
   }
+
+  /* Compact internal card typography */
+  .destino-title { font-size: 0.88rem; margin-bottom: 0.4rem; }
+  .destino-desc { font-size: 0.75rem; margin-bottom: 0.85rem; }
+  .destino-price { font-size: 0.85rem; }
+  .ship-name { font-size: 0.98rem; margin-bottom: 0.5rem; }
+  .ship-model { font-size: 0.7rem; margin-bottom: 0.2rem; }
+  .ship-specs { gap: 0.45rem; margin: 0.75rem 0; padding: 0.65rem; }
+  .spec-row { font-size: 0.73rem; }
+  .step-num { font-size: 1.35rem; margin-bottom: 0.4rem; }
+  .step-title { font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .step-desc { font-size: 0.72rem; }
+  .quote-text { font-size: 0.78rem; margin-bottom: 0.85rem; line-height: 1.5; }
+  .author-details h4 { font-size: 0.72rem; letter-spacing: 0.1em; }
+  .author-details p { font-size: 0.65rem; }
+  .author-avatar { width: 34px; height: 34px; font-size: 0.72rem; }
+  .hud-label { font-size: 0.7rem; }
+  .live-widget-terminal { font-size: 0.7rem; padding: 0.85rem; gap: 0.3rem; }
+  .telemetry-hud { gap: 0.75rem; }
+  .hud-metric { gap: 0.3rem; }
+  .destino-header { margin-bottom: 0.5rem; }
+  .destino-footer { padding-top: 0.65rem; }
 
   .footer-section {
     min-height: 100vh;
@@ -1330,129 +1379,173 @@ section.active {
 
 @media (max-width: 640px) {
   section {
-    padding: 5rem 0.85rem 2rem;
+    padding: 4.5rem 0.75rem 1.25rem;
+    justify-content: flex-start;
+    overflow: hidden; /* no internal scroll */
   }
 
   #reserva {
-    padding-top: 5.5rem;
-    padding-bottom: 2rem;
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+    overflow-y: auto; /* booking form exception */
+    justify-content: flex-start;
   }
 
+  /* Hero */
   .hero-title {
-    font-size: clamp(1.1rem, 5vw, 1.65rem);
-    letter-spacing: 0.12em;
-    margin-top: 0.5rem;
-    line-height: 1.35;
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
+    letter-spacing: 0.1em;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.3;
   }
 
-  .hero-title span {
-    display: block;
-    margin-top: 0.25rem;
-  }
+  .hero-title span { display: block; margin-top: 0.2rem; }
 
   .hero-tagline {
-    font-size: 0.75rem;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.85rem;
+    margin-bottom: 1.1rem;
   }
 
   .hero-cta-group {
     flex-direction: column;
     width: 100%;
-    max-width: 300px;
-    gap: 0.85rem;
+    max-width: 280px;
+    gap: 0.65rem;
   }
 
   .btn-primary, .btn-secondary {
     width: 100%;
     justify-content: center;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
+    padding: 0.7rem 1.25rem;
   }
 
+  /* Shared section header */
   .section-tag {
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 0.75rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    padding: 0.18rem 0.65rem;
+    margin-bottom: 0.35rem;
   }
 
   .section-title {
-    font-size: clamp(0.95rem, 4.5vw, 1.35rem);
-    letter-spacing: 0.15em;
+    font-size: clamp(0.88rem, 4vw, 1.2rem);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
   }
 
   .section-subtitle {
-    font-size: 0.78rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.72rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.4;
   }
 
+  /* Grids — keep 2 col for destinos to save vertical space */
   .destinos-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 0.35rem;
   }
 
   .flota-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 0.6rem;
   }
 
   .academy-timeline {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-top: 0.35rem;
   }
 
   .testimonials-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.6rem;
   }
 
+  /* Cards */
+  .glass-card { padding: 0.75rem 0.65rem; }
+
   .booking-glass-card {
-    padding: 1.15rem 0.9rem;
+    padding: 1rem 0.75rem;
   }
 
   .form-row {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    gap: 0.65rem;
   }
 
   .form-input, .form-select {
-    font-size: 1rem; /* Prevents auto-zoom on mobile Chrome & Safari */
+    font-size: 1rem; /* Prevents auto-zoom on iOS/Android */
+    padding: 0.55rem 0.7rem;
   }
 
-  .footer-section {
-    padding: 0 0.6rem 12vh;
-  }
+  /* Compact card internals */
+  .destino-header { margin-bottom: 0.35rem; }
+  .destino-title { font-size: 0.78rem; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+  .destino-desc { font-size: 0.65rem; margin-bottom: 0.6rem; line-height: 1.4; }
+  .destino-price { font-size: 0.78rem; }
+  .destino-footer { padding-top: 0.5rem; }
+  .ship-model { font-size: 0.65rem; margin-bottom: 0.15rem; }
+  .ship-name { font-size: 0.88rem; letter-spacing: 0.12em; margin-bottom: 0.4rem; }
+  .ship-specs { gap: 0.35rem; margin: 0.5rem 0; padding: 0.5rem; }
+  .spec-row { font-size: 0.68rem; }
+  .step-num { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .step-title { font-size: 0.72rem; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+  .step-desc { font-size: 0.65rem; }
+  .quote-text { font-size: 0.72rem; margin-bottom: 0.65rem; line-height: 1.45; }
+  .author-details h4 { font-size: 0.68rem; letter-spacing: 0.08em; }
+  .author-details p { font-size: 0.6rem; }
+  .author-avatar { width: 30px; height: 30px; font-size: 0.65rem; }
+  .author-info { gap: 0.55rem; }
+  .hud-label { font-size: 0.65rem; }
+  .telemetry-hud { gap: 0.5rem; }
+  .hud-metric { gap: 0.25rem; }
+  .live-widget-terminal { font-size: 0.65rem; padding: 0.65rem; gap: 0.25rem; }
+
+  /* Footer */
+  .footer-section { padding: 0 0.6rem 11vh; }
 
   .footer-address-container {
-    padding: 1rem 1.15rem;
+    padding: 0.85rem 1rem;
     border-radius: 12px;
     max-width: 96vw;
   }
 
-  .footer-address-title {
-    font-size: 0.92rem;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.4rem;
-  }
-
-  .footer-address-text {
-    font-size: 0.75rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .footer-address-sub {
-    font-size: 0.68rem;
-  }
+  .footer-address-title { font-size: 0.88rem; letter-spacing: 0.07em; margin-bottom: 0.35rem; }
+  .footer-address-text { font-size: 0.72rem; margin-bottom: 0.25rem; }
+  .footer-address-sub { font-size: 0.63rem; }
 }
 
 @media (max-width: 480px) {
-  .glass-card {
-    padding: 1.15rem 0.85rem;
+  section {
+    padding: 4.25rem 0.6rem 1rem;
+    overflow: hidden;
+    justify-content: flex-start;
   }
+
+  #reserva {
+    padding-top: 4.75rem;
+    overflow-y: auto;
+  }
+
+  .glass-card { padding: 0.65rem 0.55rem; }
+
+  .destinos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .flota-grid { gap: 0.5rem; }
+  .academy-timeline { gap: 0.5rem; margin-top: 0.25rem; }
+  .testimonials-grid { gap: 0.5rem; }
 
   .destino-footer {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.85rem;
+    gap: 0.5rem;
   }
 
   .destino-footer .btn-secondary {
@@ -1461,54 +1554,40 @@ section.active {
   }
 
   .section-tag {
-    font-size: 0.58rem;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.65rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.55rem;
+    margin-bottom: 0.25rem;
   }
 
   .section-title {
-    font-size: clamp(0.9rem, 4vw, 1.2rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(0.82rem, 3.8vw, 1.05rem);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
   }
 
   .section-subtitle {
-    font-size: 0.75rem;
-    margin-bottom: 1.25rem;
+    font-size: 0.68rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
   }
 
-  .author-info {
-    gap: 0.75rem;
-  }
+  .author-info { gap: 0.5rem; }
 
-  .author-avatar {
-    width: 36px;
-    height: 36px;
-    font-size: 0.75rem;
-  }
+  .author-avatar { width: 28px; height: 28px; font-size: 0.6rem; }
 
-  .footer-section {
-    padding: 0 0.5rem 10vh;
-  }
+  /* Footer */
+  .footer-section { padding: 0 0.5rem 9vh; }
 
   .footer-address-container {
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 0.85rem;
     border-radius: 10px;
     max-width: 97vw;
   }
 
-  .footer-address-title {
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
-  }
-
-  .footer-address-text {
-    font-size: 0.7rem;
-  }
-
-  .footer-address-sub {
-    font-size: 0.62rem;
-  }
+  .footer-address-title { font-size: 0.8rem; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .footer-address-text { font-size: 0.68rem; }
+  .footer-address-sub { font-size: 0.58rem; }
 }
 
 @media (max-width: 380px) {
@@ -1527,57 +1606,99 @@ section.active {
   }
 
   section {
-    padding: 4.5rem 0.65rem 1.5rem;
+    padding: 4rem 0.5rem 0.75rem;
+    overflow: hidden;
+    justify-content: flex-start;
   }
 
+  #reserva {
+    padding-top: 4.5rem;
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
+
+  /* Hero ultra-compact */
   .hero-title {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    line-height: 1.4;
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    margin: 0.4rem 0 0.75rem;
   }
 
   .hero-tagline {
-    font-size: 0.68rem;
-    padding: 0.4rem 0.85rem;
+    font-size: 0.62rem;
+    padding: 0.35rem 0.7rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-cta-group { gap: 0.5rem; }
+
+  /* Section headers */
+  .section-tag {
+    font-size: 0.52rem;
+    letter-spacing: 0.05em;
+    padding: 0.12rem 0.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .section-title {
-    font-size: 0.88rem;
-    letter-spacing: 0.1em;
+    font-size: clamp(0.78rem, 3.5vw, 0.95rem);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
   }
 
-  .glass-card {
-    padding: 1rem 0.75rem;
+  .section-subtitle {
+    font-size: 0.62rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
   }
 
-  .booking-glass-card {
-    padding: 1rem 0.75rem;
-  }
+  /* Cards ultra-compact */
+  .glass-card { padding: 0.5rem 0.45rem; }
 
-  .footer-section {
-    padding: 0 0.4rem 8vh;
-  }
+  .booking-glass-card { padding: 0.75rem 0.6rem; }
+
+  /* Grids */
+  .destinos-grid { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; margin-top: 0.2rem; }
+  .flota-grid { gap: 0.4rem; }
+  .academy-timeline { grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.2rem; }
+  .testimonials-grid { gap: 0.4rem; }
+
+  /* Internals */
+  .destino-title { font-size: 0.7rem; letter-spacing: 0.05em; }
+  .destino-desc { font-size: 0.6rem; margin-bottom: 0.4rem; }
+  .destino-price { font-size: 0.7rem; }
+  .destino-header { margin-bottom: 0.25rem; }
+  .destino-footer { padding-top: 0.35rem; }
+  .ship-model { font-size: 0.6rem; }
+  .ship-name { font-size: 0.8rem; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+  .ship-specs { gap: 0.25rem; margin: 0.4rem 0; padding: 0.4rem; }
+  .spec-row { font-size: 0.62rem; }
+  .step-num { font-size: 0.95rem; margin-bottom: 0.18rem; }
+  .step-title { font-size: 0.65rem; letter-spacing: 0.05em; }
+  .step-desc { font-size: 0.58rem; }
+  .quote-text { font-size: 0.65rem; margin-bottom: 0.5rem; line-height: 1.4; }
+  .author-avatar { width: 26px; height: 26px; font-size: 0.58rem; }
+  .author-details h4 { font-size: 0.62rem; }
+  .author-details p { font-size: 0.56rem; }
+  .author-info { gap: 0.4rem; }
+  .hud-label { font-size: 0.6rem; }
+  .telemetry-hud { gap: 0.4rem; }
+  .hud-metric { gap: 0.2rem; }
+  .live-widget-terminal { font-size: 0.6rem; padding: 0.5rem; gap: 0.18rem; }
+
+  /* Footer */
+  .footer-section { padding: 0 0.4rem 8vh; }
 
   .footer-address-container {
-    padding: 0.65rem 0.75rem;
+    padding: 0.6rem 0.65rem;
     border-radius: 10px;
     max-width: 98vw;
   }
 
-  .footer-address-title {
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.3rem;
-  }
-
-  .footer-address-text {
-    font-size: 0.65rem;
-    letter-spacing: 0.05em;
-  }
-
-  .footer-address-sub {
-    font-size: 0.58rem;
-  }
+  .footer-address-title { font-size: 0.75rem; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+  .footer-address-text { font-size: 0.62rem; letter-spacing: 0.04em; }
+  .footer-address-sub { font-size: 0.54rem; }
 
   .mobile-menu-content {
     max-width: 100vw;
