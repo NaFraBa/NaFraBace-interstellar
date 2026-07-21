@@ -181,16 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
   triggerRevealIfVisible();
   window.addEventListener('scroll', triggerRevealIfVisible, { passive: true });
 
-  // Active Navbar link on scroll
+  // Active Navbar links on scroll (Desktop + Mobile Drawer)
   const sections = document.querySelectorAll('section');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
 
   function highlightNavOnScroll() {
     let scrollPos = window.scrollY + 220;
     sections.forEach((section) => {
       if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
         const id = section.getAttribute('id');
-        navLinks.forEach((link) => {
+        allNavLinks.forEach((link) => {
           link.classList.remove('active');
           if (link.getAttribute('href') === `#${id}`) {
             link.classList.add('active');
@@ -201,6 +201,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
+
+  // Mobile Menu Drawer Interactions
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function openMobileMenu() {
+    if (!mobileMenu || !hamburgerBtn) return;
+    hamburgerBtn.classList.add('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('is-active');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !hamburgerBtn) return;
+    hamburgerBtn.classList.remove('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('is-active');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu && mobileMenu.classList.contains('is-active');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+  }
+
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-active')) {
+      closeMobileMenu();
+    }
+  });
 
   // Booking Calculator (Section 7)
   const destSelect = document.getElementById('destination');
