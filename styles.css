@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --font-heading: 'Syncopate', 'Cinzel', -apple-system, sans-serif;
+  --font-heading: 'Syncopate', 'Orbitron', 'Cinzel', -apple-system, sans-serif;
   --font-accent: 'Cinzel', serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-body: 'Syncopate', 'Orbitron', 'Cinzel', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --bg-dark: #030712;
@@ -47,6 +47,7 @@ body {
   position: relative;
   overflow-x: hidden;
   line-height: 1.6;
+  font-family: var(--font-body);
 }
 
 /* Background Canvas & Overlay - High Brightness */
@@ -147,7 +148,7 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* Navigation Bar - Dune Minimalist Alignment */
+/* Navigation Bar - Clean No-Line Alignment */
 .navbar {
   position: fixed;
   top: 0;
@@ -160,7 +161,7 @@ body {
   justify-content: space-between;
   background: rgba(3, 7, 18, 0.45);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.12);
+  border-bottom: none;
   transition: background 0.3s ease, padding 0.3s ease;
 }
 
@@ -784,28 +785,13 @@ section {
   color: var(--primary-cyan);
 }
 
-/* Footer - Highly Transparent so 'footer_nafrabace' brand background shows cleanly */
+/* Footer - Completely Clean with No Border Lines */
 footer {
-  padding: 3rem 2rem;
-  background: rgba(3, 7, 18, 0.25);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(0, 240, 255, 0.15);
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-footer p {
-  margin-bottom: 0.5rem;
-}
-
-.footer-brand {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--primary-cyan);
-  letter-spacing: 0.35em;
-  font-size: 1.1rem;
-  text-shadow: 0 0 15px var(--primary-cyan-glow);
+  padding: 2rem;
+  background: transparent;
+  backdrop-filter: none;
+  border-top: none;
+  min-height: 100px;
 }
 
 /* Reduced Motion Override */
