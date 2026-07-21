@@ -1,5 +1,6 @@
 /**
  * NaFraBace Interstellar - Canvas Scroll Engine & UI Interactions
+ * Senior Frontend Architecture Edition
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,15 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderBar = document.getElementById('loader-bar');
   const loaderStatus = document.getElementById('loader-status');
   const preloader = document.getElementById('preloader');
-  const motionToggleBtn = document.getElementById('motion-toggle');
-  const motionLabel = document.getElementById('motion-label');
 
   let images = [];
   let imagesLoadedCount = 0;
   let currentFrameIndex = 0;
   let targetFrameIndex = 0;
   let isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let isAnimationRunning = true;
 
   // Generate Frame URLs according to public asset directory structure
   function getFrameUrl(index) {
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
-    renderFrame(Math.round(currentFrameIndex));
+    renderFrame(currentFrameIndex);
   }
 
   window.addEventListener('resize', resizeCanvas);
@@ -56,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         };
         img.onerror = () => {
-          // If individual image load fails, count anyway to avoid hanging
           imagesLoadedCount++;
           if (imagesLoadedCount === TOTAL_FRAMES) resolve();
         };
@@ -65,15 +62,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Draw frame on canvas with CSS 'cover' aspect ratio algorithm
-  function renderFrame(frameIdx) {
-    const img = images[frameIdx];
-    if (!img || !img.complete || img.naturalWidth === 0) return;
+  // Draw frame on canvas with CSS 'cover' aspect ratio algorithm & ultra-smooth transition for last frame
+  function renderFrame(exactFrameIndex) {
+    const baseIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.floor(exactFrameIndex)));
+    const nextIndex = Math.min(TOTAL_FRAMES - 1, baseIndex + 1);
+    const progressBetween = exactFrameIndex - baseIndex;
+
+    const imgBase = images[baseIndex];
+    if (!imgBase || !imgBase.complete || imgBase.naturalWidth === 0) return;
 
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
+    const imgWidth = imgBase.naturalWidth;
+    const imgHeight = imgBase.naturalHeight;
 
     const imgRatio = imgWidth / imgHeight;
     const canvasRatio = canvasWidth / canvasHeight;
@@ -93,7 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+    // If approaching final frame (216 -> 217), apply a silky smooth cross-fade blend
+    if (baseIndex >= TOTAL_FRAMES - 2 && nextIndex === TOTAL_FRAMES - 1 && progressBetween > 0) {
+      const imgNext = images[nextIndex];
+      ctx.globalAlpha = 1 - progressBetween;
+      ctx.drawImage(imgBase, offsetX, offsetY, drawWidth, drawHeight);
+
+      if (imgNext && imgNext.complete && imgNext.naturalWidth > 0) {
+        ctx.globalAlpha = progressBetween;
+        ctx.drawImage(imgNext, offsetX, offsetY, drawWidth, drawHeight);
+      }
+      ctx.globalAlpha = 1.0;
+    } else {
+      ctx.globalAlpha = 1.0;
+      ctx.drawImage(imgBase, offsetX, offsetY, drawWidth, drawHeight);
+    }
   }
 
   // Smooth Interpolated Render Loop (60 FPS LERP)
@@ -103,15 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // Linear Interpolation for fluid motion
       const diff = targetFrameIndex - currentFrameIndex;
-      currentFrameIndex += diff * 0.12;
+      currentFrameIndex += diff * 0.14;
 
-      // Snap to target if extremely close
-      if (Math.abs(diff) < 0.01) {
+      if (Math.abs(diff) < 0.005) {
         currentFrameIndex = targetFrameIndex;
       }
     }
 
-    renderFrame(Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(currentFrameIndex))));
+    renderFrame(currentFrameIndex);
     requestAnimationFrame(renderLoop);
   }
 
@@ -123,26 +138,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (maxScroll <= 0) return;
 
     const scrollFraction = Math.min(1, Math.max(0, scrollTop / maxScroll));
-    targetFrameIndex = Math.floor(scrollFraction * (TOTAL_FRAMES - 1));
+    // Maps smoothly to 0 ... (TOTAL_FRAMES - 1)
+    targetFrameIndex = scrollFraction * (TOTAL_FRAMES - 1);
   }
 
   window.addEventListener('scroll', updateScrollTarget, { passive: true });
 
-  // Motion Toggle Button setup
-  if (motionToggleBtn) {
-    motionToggleBtn.addEventListener('click', () => {
-      isReducedMotion = !isReducedMotion;
-      motionLabel.textContent = isReducedMotion ? 'FX STÁTICO' : 'FX 60FPS';
-      motionToggleBtn.style.borderColor = isReducedMotion ? '#ffb703' : 'var(--glass-border)';
-    });
-  }
+  // REVEAL ON SCROLL ENGINE (Intersection Observer)
+  const revealElements = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    },
+    {
+      root: null,
+      threshold: 0.12,
+      rootMargin: '0px 0px -50px 0px'
+    }
+  );
+
+  revealElements.forEach((el) => revealObserver.observe(el));
 
   // Active Navbar link on scroll
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-link');
 
   function highlightNavOnScroll() {
-    let scrollPos = window.scrollY + 200;
+    let scrollPos = window.scrollY + 220;
     sections.forEach((section) => {
       if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
         const id = section.getAttribute('id');
@@ -225,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Canvas & Start
   resizeCanvas();
   preloadImages().then(() => {
-    // Hide preloader
     if (preloader) {
       preloader.classList.add('loaded');
     }
