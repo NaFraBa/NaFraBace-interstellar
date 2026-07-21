@@ -1121,41 +1121,55 @@ section {
   }
 }
 
-/* Comprehensive Responsive Breakpoints */
+/* Comprehensive Responsive Breakpoints & Device Optimizations */
+@media (max-width: 1024px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .flota-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .navbar {
-    padding: 1rem 1.25rem;
+    padding: 0.85rem 1rem;
   }
 
   .nav-pill-logo {
-    padding: 0.45rem 1.1rem;
+    padding: 0.4rem 1rem;
   }
 
   .nav-brand-text {
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
   }
 
   .nav-pill-menu {
-    padding: 0.35rem 0.6rem;
+    padding: 0.3rem 0.5rem;
     border-radius: 50px;
   }
 
   .nav-links {
-    display: none;
+    display: none !important;
   }
 
   .hamburger-btn {
-    display: flex;
+    display: flex !important;
   }
 
   section {
-    padding: 5.5rem 1.25rem 3rem;
+    padding: 5rem 1rem 3rem;
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr;
   }
 
   .footer-section {
     min-height: auto;
-    padding: 3rem 1rem 3rem;
+    padding: 3.5rem 1rem 3rem;
   }
 
   .footer-address-container {
@@ -1178,15 +1192,22 @@ section {
 
 @media (max-width: 640px) {
   .hero-title {
-    font-size: clamp(1.2rem, 5vw, 1.8rem);
-    letter-spacing: 0.15em;
+    font-size: clamp(1.15rem, 5.5vw, 1.75rem);
+    letter-spacing: 0.12em;
     margin-top: 0.5rem;
+    line-height: 1.35;
+  }
+
+  .hero-title span {
+    display: block;
+    margin-top: 0.25rem;
   }
 
   .hero-cta-group {
     flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
+    gap: 0.85rem;
   }
 
   .btn-primary, .btn-secondary {
@@ -1213,42 +1234,90 @@ section {
   .booking-glass-card {
     padding: 1.25rem 1rem;
   }
+
+  .form-input, .form-select {
+    font-size: 1rem; /* Prevents auto-zoom on mobile Chrome & Safari */
+  }
 }
 
-@media (max-width: 414px) {
-  /* Samsung Galaxy S25 & modern mobile screens */
-  .nav-brand-text {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
+@media (max-width: 480px) {
+  .glass-card {
+    padding: 1.25rem 1rem;
   }
 
-  .nav-pill-logo {
-    padding: 0.4rem 0.85rem;
+  .destino-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
   }
 
-  .nav-logo-icon {
-    width: 30px;
-    height: 30px;
+  .destino-footer .btn-secondary {
+    width: 100%;
+    justify-content: center;
   }
 
-  .hero-title {
-    font-size: 1.2rem;
+  .section-tag {
+    font-size: 0.62rem;
     letter-spacing: 0.1em;
-    line-height: 1.35;
+    padding: 0.25rem 0.75rem;
   }
 
   .section-title {
-    font-size: 1.15rem;
-    letter-spacing: 0.15em;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+  }
+
+  .section-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .author-info {
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Samsung Galaxy S25 & Compact Mobile Viewports */
+  .nav-brand-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-pill-logo {
+    padding: 0.35rem 0.7rem;
+  }
+
+  .nav-logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
   }
 
   .footer-address-container {
-    padding: 1.4rem 0.85rem;
+    padding: 1.25rem 0.75rem;
     border-radius: 12px;
   }
 
+  .footer-address-title {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
+
   .mobile-menu-content {
-    max-width: 100%;
-    padding: 2rem 1.25rem;
+    max-width: 100vw;
+    width: 100vw;
+    padding: 1.75rem 1rem;
   }
 }
