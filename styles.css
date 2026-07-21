@@ -1138,12 +1138,16 @@ section {
   }
 
   .nav-pill-logo {
-    padding: 0.4rem 1rem;
+    padding: 0.4rem 0.4rem;
+    border-radius: 50px;
+  }
+
+  .nav-brand {
+    gap: 0;
   }
 
   .nav-brand-text {
-    font-size: 0.88rem;
-    letter-spacing: 0.18em;
+    display: none !important;
   }
 
   .nav-pill-menu {
@@ -1285,13 +1289,8 @@ section {
 
 @media (max-width: 380px) {
   /* Samsung Galaxy S25 & Compact Mobile Viewports */
-  .nav-brand-text {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-  }
-
   .nav-pill-logo {
-    padding: 0.35rem 0.7rem;
+    padding: 0.35rem 0.35rem;
   }
 
   .nav-logo-icon {
