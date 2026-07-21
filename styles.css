@@ -1093,7 +1093,8 @@ section.active {
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  padding: 0 1.5rem 0;
+  /* Card midpoint between Earth's curvature (~55% down) and viewport bottom */
+  padding: 0 1.5rem 20vh;
   background: transparent;
   border-top: none;
   opacity: 0;
@@ -1123,14 +1124,14 @@ section.active {
   align-items: center;
   max-width: 850px;
   width: 100%;
-  padding: 1.8rem 2.4rem;
+  padding: 2rem 2.8rem;
   margin-bottom: 0;
-  background: rgba(3, 7, 18, 0.55);
+  background: rgba(3, 7, 18, 0.6);
   border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 16px 16px 0 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 -6px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.65), 0 0 60px rgba(0, 240, 255, 0.06);
   transition: var(--transition-normal);
   position: relative;
   overflow: hidden;
@@ -1193,6 +1194,12 @@ section.active {
   .flota-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
+  .destinos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .section-title {
+    font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+  }
 }
 
 @media (max-width: 900px) {
@@ -1227,13 +1234,14 @@ section.active {
   }
 
   section {
-    padding: 5rem 1rem 3rem;
+    padding: 5rem 1rem 2.5rem;
   }
 
   #reserva {
     min-height: 100vh;
+    min-height: 100dvh;
     padding-top: 6.5rem;
-    padding-bottom: 3rem;
+    padding-bottom: 2.5rem;
     margin-bottom: 0;
   }
 
@@ -1241,15 +1249,66 @@ section.active {
     grid-template-columns: 1fr;
   }
 
+  .destinos-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .flota-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .academy-timeline {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .section-title {
+    font-size: clamp(1rem, 4vw, 1.55rem);
+    letter-spacing: 0.2em;
+  }
+
+  .section-subtitle {
+    font-size: 0.82rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.25rem, 5.5vw, 2.1rem);
+    letter-spacing: 0.2em;
+  }
+
+  .hero-tagline {
+    font-size: clamp(0.78rem, 3vw, 1rem);
+    padding: 0.6rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .booking-glass-card {
+    padding: 1.5rem 1.15rem;
+  }
+
+  .form-input, .form-select {
+    font-size: 1rem;
+  }
+
   .footer-section {
     min-height: 100vh;
     min-height: 100dvh;
-    padding: 0 0.75rem 0;
+    /* Mobile: curvature at ~50%, card midpoint ~15vh from bottom */
+    padding: 0 0.75rem 15vh;
   }
 
   .footer-address-container {
-    padding: 1rem 1.25rem;
-    border-radius: 14px 14px 0 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    max-width: 94vw;
   }
 
   .footer-address-title {
@@ -1269,8 +1328,17 @@ section.active {
 }
 
 @media (max-width: 640px) {
+  section {
+    padding: 5rem 0.85rem 2rem;
+  }
+
+  #reserva {
+    padding-top: 5.5rem;
+    padding-bottom: 2rem;
+  }
+
   .hero-title {
-    font-size: clamp(1.15rem, 5.5vw, 1.75rem);
+    font-size: clamp(1.1rem, 5vw, 1.65rem);
     letter-spacing: 0.12em;
     margin-top: 0.5rem;
     line-height: 1.35;
@@ -1279,6 +1347,12 @@ section.active {
   .hero-title span {
     display: block;
     margin-top: 0.25rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-cta-group {
@@ -1291,36 +1365,87 @@ section.active {
   .btn-primary, .btn-secondary {
     width: 100%;
     justify-content: center;
+    font-size: 0.72rem;
+  }
+
+  .section-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(0.95rem, 4.5vw, 1.35rem);
+    letter-spacing: 0.15em;
+  }
+
+  .section-subtitle {
+    font-size: 0.78rem;
+    margin-bottom: 1.5rem;
   }
 
   .destinos-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .flota-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .academy-timeline {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .testimonials-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .booking-glass-card {
-    padding: 1.25rem 1rem;
+    padding: 1.15rem 0.9rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .form-input, .form-select {
     font-size: 1rem; /* Prevents auto-zoom on mobile Chrome & Safari */
   }
+
+  .footer-section {
+    padding: 0 0.6rem 12vh;
+  }
+
+  .footer-address-container {
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    max-width: 96vw;
+  }
+
+  .footer-address-title {
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-address-text {
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-address-sub {
+    font-size: 0.68rem;
+  }
 }
 
 @media (max-width: 480px) {
   .glass-card {
-    padding: 1.25rem 1rem;
+    padding: 1.15rem 0.85rem;
   }
 
   .destino-footer {
@@ -1335,19 +1460,19 @@ section.active {
   }
 
   .section-tag {
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 0.75rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.65rem;
   }
 
   .section-title {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
     letter-spacing: 0.12em;
   }
 
   .section-subtitle {
-    font-size: 0.8rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+    margin-bottom: 1.25rem;
   }
 
   .author-info {
@@ -1359,10 +1484,38 @@ section.active {
     height: 36px;
     font-size: 0.75rem;
   }
+
+  .footer-section {
+    padding: 0 0.5rem 10vh;
+  }
+
+  .footer-address-container {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    max-width: 97vw;
+  }
+
+  .footer-address-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
+  }
+
+  .footer-address-text {
+    font-size: 0.7rem;
+  }
+
+  .footer-address-sub {
+    font-size: 0.62rem;
+  }
 }
 
 @media (max-width: 380px) {
   /* Samsung Galaxy S25 & Compact Mobile Viewports */
+  .navbar {
+    padding: 0.6rem 0.75rem;
+  }
+
   .nav-pill-logo {
     padding: 0.35rem 0.35rem;
   }
@@ -1372,21 +1525,57 @@ section.active {
     height: 28px;
   }
 
+  section {
+    padding: 4.5rem 0.65rem 1.5rem;
+  }
+
   .hero-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
     line-height: 1.4;
   }
 
+  .hero-tagline {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.85rem;
+  }
+
+  .section-title {
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+  }
+
+  .glass-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .booking-glass-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .footer-section {
+    padding: 0 0.4rem 8vh;
+  }
+
   .footer-address-container {
     padding: 0.65rem 0.75rem;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
+    max-width: 98vw;
   }
 
   .footer-address-title {
-    font-size: 0.88rem;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-address-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-address-sub {
+    font-size: 0.58rem;
   }
 
   .mobile-menu-content {
