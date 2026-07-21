@@ -976,8 +976,8 @@ section.active {
 
 /* SECTION 7: RESERVA & FOOTER - Translucent for Personal Brand Visibility */
 #reserva {
-  justify-content: flex-end; /* Lower the position of the card */
-  padding-bottom: 6.5rem; /* Breathing room at the bottom */
+  padding-top: 9rem; /* Safely lower the card position */
+  padding-bottom: 4rem;
 }
 
 .booking-container {
@@ -1231,8 +1231,8 @@ section.active {
 
   #reserva {
     min-height: 100vh;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 6.5rem;
+    padding-bottom: 3rem;
     margin-bottom: 0;
   }
 
