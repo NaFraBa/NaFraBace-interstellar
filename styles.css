@@ -976,7 +976,8 @@ section.active {
 
 /* SECTION 7: RESERVA & FOOTER - Translucent for Personal Brand Visibility */
 #reserva {
-  /* Inherits fixed layout from section base style */
+  justify-content: flex-end; /* Lower the position of the card */
+  padding-bottom: 6.5rem; /* Breathing room at the bottom */
 }
 
 .booking-container {
