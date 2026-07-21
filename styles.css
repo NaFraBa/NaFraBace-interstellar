@@ -961,8 +961,8 @@ section {
 #reserva {
   min-height: auto;
   padding-top: 6rem;
-  padding-bottom: 5rem;
-  margin-bottom: 1.5rem;
+  padding-bottom: 6rem;
+  margin-bottom: 12rem; /* Large spacing to prevent overlap with footer-section */
 }
 
 .booking-container {
@@ -978,6 +978,7 @@ section {
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  overflow: visible !important; /* Allow dropdown options and date picker popups to float cleanly */
 }
 
 .booking-form {
@@ -1188,6 +1189,12 @@ section {
 
   section {
     padding: 5rem 1rem 3rem;
+  }
+
+  #reserva {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    margin-bottom: 8rem; /* Clear spacing on tablets and mobile viewports */
   }
 
   .telemetry-grid {
