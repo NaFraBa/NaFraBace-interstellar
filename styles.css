@@ -40,6 +40,10 @@ html {
   background-color: var(--bg-dark);
   color: var(--text-main);
   overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -49,6 +53,7 @@ body {
   line-height: 1.6;
   font-family: var(--font-body);
   letter-spacing: 0.05em;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Background Canvas & Overlay - High Brightness */
@@ -623,8 +628,10 @@ section.active {
   border-radius: 6px;
   cursor: pointer;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
   transition: var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-secondary:hover {
@@ -935,6 +942,7 @@ section.active {
   flex-direction: column;
   gap: 0.5rem;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.1);
 }
 
@@ -1064,6 +1072,8 @@ section.active {
   text-overflow: ellipsis;
   overflow: hidden;
   transition: var(--transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .form-select option {
@@ -1767,4 +1777,24 @@ section.active {
     width: 100vw;
     padding: 1.5rem 0.85rem;
   }
+}
+
+/* WebKit Custom Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(3, 7, 18, 0.85);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-cyan);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--primary-cyan);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-magenta);
 }
