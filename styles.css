@@ -1329,8 +1329,11 @@ section.active {
     text-align: left;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .destino-price { font-size: clamp(0.65rem, 1.3vw, 0.75rem); }
   .destino-footer { padding-top: 0.3rem; gap: 0.25rem; }
@@ -1364,8 +1367,11 @@ section.active {
     color: var(--text-muted);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .ship-specs { gap: 0.2rem; margin: 0.25rem 0; padding: 0.3rem; background: rgba(0, 0, 0, 0.3); border-radius: 6px; }
   .spec-row { font-size: clamp(0.56rem, 1.1vw, 0.64rem); }
@@ -1507,7 +1513,16 @@ section.active {
 
   .destino-header { margin-bottom: 0.18rem; }
   .destino-title { font-size: 0.72rem; letter-spacing: 0.05em; margin-bottom: 0.15rem; }
-  .destino-desc { font-size: 0.58rem; margin-bottom: 0.35rem; line-height: 1.25; -webkit-line-clamp: 2; }
+  .destino-desc {
+    font-size: 0.58rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .destino-price { font-size: 0.7rem; }
   .destino-footer { padding-top: 0.25rem; }
 
@@ -1596,7 +1611,16 @@ section.active {
   .booking-form button[type="submit"] { padding: 0.45rem; font-size: 0.6rem; }
 
   .destino-title { font-size: 0.65rem; letter-spacing: 0.03em; margin-bottom: 0.1rem; }
-  .destino-desc { font-size: 0.54rem; margin-bottom: 0.2rem; line-height: 1.2; -webkit-line-clamp: 2; }
+  .destino-desc {
+    font-size: 0.54rem;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .destino-price { font-size: 0.62rem; }
   .destino-header { margin-bottom: 0.15rem; }
   .destino-footer { padding-top: 0.2rem; }
